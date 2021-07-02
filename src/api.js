@@ -56,6 +56,10 @@ const api = (function api()
     {
         return new Promise(function(resolve, reject) {
             fetch(url, opts).then(function(response) {
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+
                 getResponse(response).then(function(res) {
                     result = result.concat(res);
                     let nextPage = getNextPage(response);
